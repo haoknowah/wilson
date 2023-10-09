@@ -11,6 +11,7 @@ public class Category {
 	private Category(String name)
 	{
 		this.name = name;
+		culprits = new ArrayList<String>();
 	}
 	public Category(String name, double budget)
 	{
