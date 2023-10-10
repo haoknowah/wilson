@@ -11,6 +11,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
 
+import wilson.models.Category;
+
 public class ReadFile {
 	public ReadFile()
 	{
@@ -43,5 +45,11 @@ public class ReadFile {
 	public void readExcel()
 	{
 		
+	}
+	public List<Category> getCategoriesFromFile()
+	{
+		List<Category> categories = new ArrayList<Category>();
+		File file = new File(System.getProperty("user.dir" + "/categories.json"));
+		return categories;
 	}
 }

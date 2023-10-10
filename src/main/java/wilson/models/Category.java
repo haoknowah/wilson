@@ -3,6 +3,8 @@ package wilson.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import wilson.io.Prompts;
+
 public class Category {
 
 	private String name;
@@ -28,6 +30,13 @@ public class Category {
 	public static Category getCategory(String name)
 	{
 		Category category = new Category(name);
+		return category;
+	}
+	public static Category newCategory(String name, String culprit)
+	{
+		String[] cat = Prompts.newCategory(name);
+		Category category = new Category(cat[0], Double.parseDouble(cat[1]));
+		category.addCulprit(culprit);
 		return category;
 	}
 	public String getName() {
