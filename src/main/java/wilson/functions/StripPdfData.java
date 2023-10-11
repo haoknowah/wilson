@@ -58,12 +58,6 @@ public class StripPdfData {
 			}
 		}
 		objectify(filteredLines);
-		System.out.println(this.save().getCanonicalPath());
-	}
-	public File save() throws IOException
-	{
-		File file = File.createTempFile("bank", "data");
-		return file;
 	}
 	private List<Transactions> objectify(List<String> filteredLines)
 	{
