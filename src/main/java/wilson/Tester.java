@@ -19,7 +19,7 @@ public class Tester {
 		StripPdfData stripper = new StripPdfData();
 		stripper.parseFile(doc);
 		Category meow = Category.getCategory("test");
-		Save.saveToCategory("XXXX", meow.getName(), meow);
+		Save.saveToCategory("XXXX", meow.getName());
 	}
 
 }
