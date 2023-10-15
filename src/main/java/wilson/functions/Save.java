@@ -29,7 +29,8 @@ public class Save {
 			cat = Category.newCategory(tmp, name);
 		}
 		Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
-		gson.toJson(new Category("tester", 100), writer);
+		Category[] catt = {new Category("tester", 100), new Category("testing", 100)};
+		gson.toJson(catt, writer);
 		writer.flush();
 		writer.close();
 	}

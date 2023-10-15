@@ -1,8 +1,11 @@
 package wilson.functions;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -15,25 +18,28 @@ import wilson.models.Category;
 public class ModData {
 	public static void addToCategory(String culprit, String CategoryName)
 	{
-		JSONParser par = new JSONParser();
 		Gson gson = new Gson();
 		try
 		{
-			Object obj = par.parse(new FileReader(System.getProperty("user.dir") + "/categories.json"));
-			System.out.println(obj.toString());
-			System.out.println(par.parse(new FileReader(System.getProperty("user.dir") + "/categories.json")));
 			Reader yub = new FileReader(System.getProperty("user.dir") + "/categories.json");
-			List<Category> cats = new ArrayList<Category>();
-			Category r = gson.fromJson(yub, Category.class);
-			if(r.getCulprits().contains(CategoryName))
+			Category[] r = gson.fromJson(yub, Category[].class);
+			Arrays.stream(r).filter(x -> x.getName() == CategoryName);
+			System.out.println(CategoryName);
+			if(r[0].getCulprits().contains(CategoryName))
 			{
 				System.out.println("MEOW");
 			}
 			else
 			{
+				r[0].addCulprit(CategoryName);
 				System.out.println("FUCK");
 			}
-			
+			yub.close();
+			System.out.println(r[0].getCulprits());
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
+			gson.toJson(r, writer);
+			writer.flush();
+			writer.close();
 		}
 		catch(Exception e)
 		{

@@ -18,7 +18,7 @@ public class Tester {
 		List<String[]> doc = tst.readPdfByPage("yub");
 		StripPdfData stripper = new StripPdfData();
 		stripper.parseFile(doc);
-		Category meow = Category.getCategory("test");
+		Category meow = Category.getCategory("tester");
 		Save.saveToCategory("XXXX", meow.getName());
 	}
 

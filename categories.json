@@ -1,5 +1,12 @@
-{
-  "name": "tester",
-  "budget": 100.0,
-  "culprits": []
-}
+[
+  {
+    "name": "tester",
+    "budget": 100.0,
+    "culprits": []
+  },
+  {
+    "name": "testing",
+    "budget": 100.0,
+    "culprits": []
+  }
+]
