@@ -20,7 +20,7 @@ public class Save {
 		Category cat = null;
 		try
 		{
-			ModData.addToCategory(name, categoryName);
+			ModData.addToCategory(name);
 		}
 		catch(Exception e)
 		{
@@ -28,11 +28,6 @@ public class Save {
 			String tmp = Prompts.placeCategory(name);
 			cat = Category.newCategory(tmp, name);
 		}
-		Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
-		Category[] catt = {new Category("tester", 100), new Category("testing", 100)};
-		gson.toJson(catt, writer);
-		writer.flush();
-		writer.close();
 	}
 	public static void saveToAccount(List<Category> categories)
 	{

@@ -1,5 +1,6 @@
 package wilson.io;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 import wilson.models.Category;
@@ -18,5 +19,25 @@ public class Prompts {
 		String budget = in.nextLine();
 		String[] category = {name, budget};
 		return category;
+	}
+	public static String selectOption(Category[] options)
+	{
+		boolean val = false;
+		String sel = "";
+		while(val == false)
+		{
+			System.out.println("Select an option. ");
+			String o = in.nextLine();
+			for(Category c : options)
+			{
+				if(c.getName().equals(o))
+				{
+					sel = o;
+					val = true;
+					break;
+				}
+			}
+		}
+		return sel;
 	}
 }
