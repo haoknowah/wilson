@@ -1,15 +1,18 @@
 package wilson.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.Reader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
-import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.text.PDFTextStripper;
+
+import com.google.gson.Gson;
 
 import wilson.models.Category;
 
@@ -46,10 +49,12 @@ public class ReadFile {
 	{
 		
 	}
-	public List<Category> getCategoriesFromFile()
+	public Category[] getCategoriesFromFile() throws FileNotFoundException
 	{
-		List<Category> categories = new ArrayList<Category>();
-		File file = new File(System.getProperty("user.dir" + "/categories.json"));
+		Category[] categories = null;
+		Reader file = new FileReader(System.getProperty("user.dir" + "/categories.json"));
+		Gson gson = new Gson();
+		categories = gson.fromJson(file, Category[].class);
 		return categories;
 	}
 }

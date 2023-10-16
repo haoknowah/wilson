@@ -23,7 +23,6 @@ public class ModData {
 		{
 			Reader yub = new FileReader(System.getProperty("user.dir") + "/categories.json");
 			Category[] r = gson.fromJson(yub, Category[].class);
-			System.out.println(r.length);
 			Object[] a = Arrays.stream(r).filter(x -> x.getCulprits().contains(culprit)).toArray();
 			Category[] tmp=Arrays.asList(a).toArray(new Category[a.length]);
 			String category = "";
@@ -43,7 +42,6 @@ public class ModData {
 				}
 				category = Prompts.selectOption(tmp);
 			}
-			System.out.println(r.length);
 			for(Category c : r)
 			{
 				if(c.getName().equals(category))

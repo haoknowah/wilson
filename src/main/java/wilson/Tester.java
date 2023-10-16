@@ -3,12 +3,10 @@ package wilson;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.pdfbox.pdmodel.PDDocument;
 
 import wilson.functions.Save;
 import wilson.functions.StripPdfData;
 import wilson.io.ReadFile;
-import wilson.models.Category;
 
 public class Tester {
 
@@ -18,8 +16,7 @@ public class Tester {
 		List<String[]> doc = tst.readPdfByPage("yub");
 		StripPdfData stripper = new StripPdfData();
 		stripper.parseFile(doc);
-		Category meow = Category.getCategory("tester");
-		Save.saveToCategory("XXXX", meow.getName());
+		Save.saveToCategory("XXXX");
 	}
 
 }

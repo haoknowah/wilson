@@ -15,7 +15,7 @@ import wilson.models.Category;
 
 public class Save {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
-	public static void saveToCategory(String name, String categoryName) throws JsonIOException, IOException
+	public static void saveToCategory(String name) throws JsonIOException, IOException
 	{
 		Category cat = null;
 		try
@@ -27,6 +27,10 @@ public class Save {
 			e.printStackTrace();
 			String tmp = Prompts.placeCategory(name);
 			cat = Category.newCategory(tmp, name);
+		}
+		if(cat != null)
+		{
+			ModData.addToCategory(name);
 		}
 	}
 	public static void saveToAccount(List<Category> categories)
