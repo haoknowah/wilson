@@ -1,11 +1,11 @@
 package wilson.io;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.pdfbox.Loader;
@@ -21,7 +21,7 @@ public class ReadFile {
 	{
 		System.out.println("Meow");
 	}
-	public String readPdf() throws IOException
+	public static String readPdf() throws IOException
 	{
 		File file = new File("E:/Documents/ProjectWorkspace/wilson/Statement.pdf");
 		PDDocument doc = Loader.loadPDF(file);
@@ -30,7 +30,7 @@ public class ReadFile {
 		doc.close();
 		return text;
 	}
-	public List<String[]> readPdfByPage(String loc) throws IOException
+	public static List<String[]> readPdfByPage(String loc) throws IOException
 	{
 		File file = new File("E:/Documents/ProjectWorkspace/wilson/Statement.pdf");
 		PDDocument doc = Loader.loadPDF(file);
@@ -49,12 +49,14 @@ public class ReadFile {
 	{
 		
 	}
-	public Category[] getCategoriesFromFile() throws FileNotFoundException
+	public static Category[] getCategoriesFromFile() throws IOException
 	{
 		Category[] categories = null;
 		Reader file = new FileReader(System.getProperty("user.dir" + "/categories.json"));
 		Gson gson = new Gson();
 		categories = gson.fromJson(file, Category[].class);
+		Arrays.stream(categories).forEach(x->System.out.println(x));
+		file.close();
 		return categories;
 	}
 }

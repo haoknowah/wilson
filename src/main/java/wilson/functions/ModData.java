@@ -1,9 +1,7 @@
 package wilson.functions;
 
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Reader;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.List;
@@ -13,6 +11,7 @@ import java.util.List;
 import com.google.gson.Gson;
 
 import wilson.io.Prompts;
+import wilson.io.ReadFile;
 import wilson.models.Category;
 
 public class ModData {
@@ -21,8 +20,7 @@ public class ModData {
 		Gson gson = new Gson();
 		try
 		{
-			Reader yub = new FileReader(System.getProperty("user.dir") + "/categories.json");
-			Category[] r = gson.fromJson(yub, Category[].class);
+			Category[] r = ReadFile.getCategoriesFromFile();
 			Object[] a = Arrays.stream(r).filter(x -> x.getCulprits().contains(culprit)).toArray();
 			Category[] tmp=Arrays.asList(a).toArray(new Category[a.length]);
 			String category = "";
@@ -49,7 +47,6 @@ public class ModData {
 					c.addCulprit(culprit);
 				}
 			}
-			yub.close();
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
 			gson.toJson(r, writer);
 			writer.flush();
@@ -64,8 +61,7 @@ public class ModData {
 	{
 		Gson gson = new Gson();
 		try {
-			Reader reader = new FileReader(System.getProperty("user.dir") + "/categories.json");
-			Category[] cats = gson.fromJson(reader, Category[].class);
+			Category[] cats = ReadFile.getCategoriesFromFile();
 			String[] newCat = Prompts.newCategory(name);
 			List<Category> upd = Arrays.asList(cats);
 			upd.add(new Category(newCat[0], Double.parseDouble(newCat[1])));
