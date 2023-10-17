@@ -13,6 +13,7 @@ import com.google.gson.Gson;
 import wilson.io.Prompts;
 import wilson.io.ReadFile;
 import wilson.models.Category;
+import wilson.models.Transactions;
 
 public class ModData {
 	public static void addToCategory(String culprit)
@@ -72,6 +73,19 @@ public class ModData {
 			writer.close();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public static void addTransactions(Transactions event)
+	{
+		Gson gson = new Gson();
+		try
+		{
+			List<Transactions> events = ReadFile.getTransactionsFromFile();
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/transactions.json");
+		}
+		catch(Exception e)
+		{
 			e.printStackTrace();
 		}
 	}

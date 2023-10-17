@@ -1,6 +1,5 @@
 package wilson.io;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
 import wilson.models.Category;

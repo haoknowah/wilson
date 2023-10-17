@@ -15,6 +15,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 import com.google.gson.Gson;
 
 import wilson.models.Category;
+import wilson.models.Transactions;
 
 public class ReadFile {
 	public ReadFile()
@@ -52,11 +53,20 @@ public class ReadFile {
 	public static Category[] getCategoriesFromFile() throws IOException
 	{
 		Category[] categories = null;
-		Reader file = new FileReader(System.getProperty("user.dir" + "/categories.json"));
+		Reader file = new FileReader(System.getProperty("user.dir") + "/categories.json");
 		Gson gson = new Gson();
 		categories = gson.fromJson(file, Category[].class);
 		Arrays.stream(categories).forEach(x->System.out.println(x));
 		file.close();
 		return categories;
+	}
+	public static List<Transactions> getTransactionsFromFile() throws IOException
+	{
+		List<Transactions> events = new ArrayList<Transactions>();
+		Reader reader = new FileReader(System.getProperty("user.dir") + "/transactions.json");
+		Gson gson = new Gson();
+		events = Arrays.asList(gson.fromJson(reader, Transactions[].class));
+		reader.close();
+		return events;
 	}
 }

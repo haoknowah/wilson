@@ -1,9 +1,6 @@
 package wilson.functions;
 
-import java.io.FileReader;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.Writer;
 import java.util.List;
 
 import com.google.gson.Gson;
@@ -12,6 +9,7 @@ import com.google.gson.JsonIOException;
 
 import wilson.io.Prompts;
 import wilson.models.Category;
+import wilson.models.Transactions;
 
 public class Save {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -38,6 +36,10 @@ public class Save {
 		
 	}
 	public static void saveAccount()
+	{
+		
+	}
+	public static void saveTransactions(List<Transactions> events)
 	{
 		
 	}
