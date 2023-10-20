@@ -12,6 +12,7 @@ import com.google.gson.Gson;
 
 import wilson.io.Prompts;
 import wilson.io.ReadFile;
+import wilson.models.Account;
 import wilson.models.Category;
 import wilson.models.Transactions;
 
@@ -83,6 +84,28 @@ public class ModData {
 		{
 			List<Transactions> events = ReadFile.getTransactionsFromFile();
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/transactions.json");
+			events.add(event);
+			gson.toJson(events, writer);
+			writer.flush();
+			writer.close();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	public static void addAccount()
+	{
+		Account account = Prompts.createAccount();
+		Gson gson = new Gson();
+		try
+		{
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+			List<Account> accounts = ReadFile.getAccounts();
+			accounts.add(account);
+			gson.toJson(accounts, writer);
+			writer.flush();
+			writer.close();
 		}
 		catch(Exception e)
 		{

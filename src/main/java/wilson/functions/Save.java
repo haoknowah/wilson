@@ -41,6 +41,6 @@ public class Save {
 	}
 	public static void saveTransactions(List<Transactions> events)
 	{
-		
+		events.stream().forEach(x->ModData.addTransactions(x));
 	}
 }

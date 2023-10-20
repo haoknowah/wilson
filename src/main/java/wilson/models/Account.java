@@ -16,6 +16,13 @@ public class Account {
 		events = new ArrayList<Transactions>();
 		this.categories = new ArrayList<Category>();
 	}
+	public Account(String name)
+	{
+		this.name = name;
+		this.balance = 0;
+		this.events = new ArrayList<Transactions>();
+		this.categories = new ArrayList<Category>();
+	}
 	
 	public Account(double balance, String name, List<Transactions> events, List<Category> categories) {
 		super();
@@ -42,5 +49,12 @@ public class Account {
 	}
 	public void setEvents(List<Transactions> events) {
 		this.events = events;
+	}
+	public List<Category> getCategories() {
+		return categories;
+	}
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 }

@@ -1,6 +1,7 @@
 package wilson.io;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
@@ -14,6 +15,7 @@ import org.apache.pdfbox.text.PDFTextStripper;
 
 import com.google.gson.Gson;
 
+import wilson.models.Account;
 import wilson.models.Category;
 import wilson.models.Transactions;
 
@@ -68,5 +70,14 @@ public class ReadFile {
 		events = Arrays.asList(gson.fromJson(reader, Transactions[].class));
 		reader.close();
 		return events;
+	}
+	public static List<Account> getAccounts() throws IOException
+	{
+		List<Account> accounts= new ArrayList<Account>();
+		Reader reader = new FileReader(System.getProperty("user.dir") + "/accounts.json");
+		Gson gson = new Gson();
+		accounts = Arrays.asList(gson.fromJson(reader, Account[].class));
+		reader.close();
+		return accounts;
 	}
 }
