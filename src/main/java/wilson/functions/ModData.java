@@ -1,8 +1,10 @@
 package wilson.functions;
 
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -103,13 +105,64 @@ public class ModData {
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
 			List<Account> accounts = ReadFile.getAccounts();
 			accounts.add(account);
-			gson.toJson(accounts, writer);
+			Account[] nw = accounts.toArray(new Account[accounts.size()]);
+			gson.toJson(nw, writer);
 			writer.flush();
 			writer.close();
 		}
-		catch(Exception e)
+		catch(FileNotFoundException e)
+		{
+			try {
+				Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+				Account[] accounts = {account};
+				gson.toJson(accounts, writer);
+				writer.flush();
+				writer.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		catch(IOException e)
 		{
 			e.printStackTrace();
 		}
+		catch(Exception e)
+		{
+			try {
+				Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+				Account[] accounts = {account};
+				gson.toJson(accounts, writer);
+				writer.flush();
+				writer.close();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	//to do
+	public static Account getAccount(String name)
+	{
+		Account account = new Account(name);
+		try {
+			List<Account> accounts = ReadFile.getAccounts();
+			account = (Account) accounts.stream().filter(x -> x.getName().equalsIgnoreCase(name)).toArray()[0];
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			System.out.println("getAccount");
+			addAccount();
+			account = null;
+		}
+		catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("getAccount");
+			addAccount();
+			account = null;
+		}
+		return account;
 	}
 }
