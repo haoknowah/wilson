@@ -58,7 +58,6 @@ public class ReadFile {
 		Reader file = new FileReader(System.getProperty("user.dir") + "/categories.json");
 		Gson gson = new Gson();
 		categories = gson.fromJson(file, Category[].class);
-		Arrays.stream(categories).forEach(x->System.out.println(x));
 		file.close();
 		return categories;
 	}

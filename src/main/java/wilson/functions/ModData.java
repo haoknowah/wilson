@@ -141,9 +141,9 @@ public class ModData {
 			}
 		}
 	}
-	//to do
 	public static Account getAccount(String name)
 	{
+		System.out.println("getting account");
 		Account account = new Account(name);
 		try {
 			List<Account> accounts = ReadFile.getAccounts();
@@ -152,17 +152,16 @@ public class ModData {
 		catch(IOException e)
 		{
 			e.printStackTrace();
-			System.out.println("getAccount");
 			addAccount();
 			account = null;
 		}
 		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("getAccount");
 			addAccount();
 			account = null;
 		}
+		System.out.println("got account");
 		return account;
 	}
 }
