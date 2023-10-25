@@ -7,17 +7,16 @@ import wilson.functions.ModData;
 import wilson.functions.Save;
 import wilson.functions.StripPdfData;
 import wilson.io.ReadFile;
+import wilson.models.Account;
 
 public class Tester {
 
 	public static void main(String[] args) throws IOException{
-		// TODO Auto-generated method stub
-		ReadFile tst = new ReadFile();
-		List<String[]> doc = tst.readPdfByPage("yub");
+		List<String[]> doc = ReadFile.readPdfByPage("yub");
 		StripPdfData stripper = new StripPdfData();
 		stripper.parseFile(doc);
 		Save.saveToCategory("XXXX");
-		ModData.getAccount("yub");
+		Account account = ModData.getAccount("yub");
 	}
 
 }

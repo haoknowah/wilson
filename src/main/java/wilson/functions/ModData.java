@@ -75,7 +75,6 @@ public class ModData {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -119,7 +118,6 @@ public class ModData {
 				writer.flush();
 				writer.close();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
 		}
@@ -136,7 +134,48 @@ public class ModData {
 				writer.flush();
 				writer.close();
 			} catch (IOException e1) {
-				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+	}
+	public static void addAccount(Account account)
+	{
+		Gson gson = new Gson();
+		try
+		{
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+			List<Account> accounts = ReadFile.getAccounts();
+			accounts.add(account);
+			Account[] nw = accounts.toArray(new Account[accounts.size()]);
+			gson.toJson(nw, writer);
+			writer.flush();
+			writer.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			try {
+				Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+				Account[] accounts = {account};
+				gson.toJson(accounts, writer);
+				writer.flush();
+				writer.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		catch(Exception e)
+		{
+			try {
+				Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+				Account[] accounts = {account};
+				gson.toJson(accounts, writer);
+				writer.flush();
+				writer.close();
+			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
 		}
@@ -156,7 +195,6 @@ public class ModData {
 			account = null;
 		}
 		catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			addAccount();
 			account = null;

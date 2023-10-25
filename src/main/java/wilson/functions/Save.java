@@ -8,6 +8,8 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonIOException;
 
 import wilson.io.Prompts;
+import wilson.io.ReadFile;
+import wilson.models.Account;
 import wilson.models.Category;
 import wilson.models.Transactions;
 
@@ -35,9 +37,27 @@ public class Save {
 	{
 		
 	}
-	public static void saveAccount()
+	public static void saveNewAccount()
 	{
-		
+		ModData.addAccount();
+	}
+	public static void saveAccount(Account account)
+	{
+		try {
+			List<Account> accounts = ReadFile.getAccounts();
+			if(accounts.stream().anyMatch(x -> x.getName().equalsIgnoreCase(account.getName())))
+			{
+				//to do
+			}
+			else
+			{
+				System.out.println("Account does not exist. Creating new account.");
+				ModData.addAccount(account);
+			}
+		} catch (IOException e) {
+			System.out.println("save failed");
+			e.printStackTrace();
+		}
 	}
 	public static void saveTransactions(List<Transactions> events)
 	{
