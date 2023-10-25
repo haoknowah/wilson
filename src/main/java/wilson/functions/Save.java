@@ -33,10 +33,6 @@ public class Save {
 			ModData.addToCategory(name);
 		}
 	}
-	public static void saveToAccount(List<Category> categories)
-	{
-		
-	}
 	public static void saveNewAccount()
 	{
 		ModData.addAccount();
@@ -47,7 +43,7 @@ public class Save {
 			List<Account> accounts = ReadFile.getAccounts();
 			if(accounts.stream().anyMatch(x -> x.getName().equalsIgnoreCase(account.getName())))
 			{
-				//to do
+				ModData.updateAccount(account);
 			}
 			else
 			{

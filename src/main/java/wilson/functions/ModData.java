@@ -202,4 +202,24 @@ public class ModData {
 		System.out.println("got account");
 		return account;
 	}
+	public static void updateAccount(Account account)
+	{
+		List<Account> accounts;
+		try {
+			accounts = ReadFile.getAccounts();
+			Account old = (Account) accounts.stream().filter(x -> x.getName().equalsIgnoreCase(account.getName())).toArray()[0];
+			int ind = accounts.indexOf(old);
+			accounts.remove(ind);
+			accounts.add(ind, account);
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+			Gson gson = new Gson();
+			gson.toJson(accounts, writer);
+			writer.flush();
+			writer.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("Failed to save");
+		}
+	}
 }
