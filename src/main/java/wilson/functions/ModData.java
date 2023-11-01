@@ -95,6 +95,19 @@ public class ModData {
 			e.printStackTrace();
 		}
 	}
+	public static List<Transactions> getTransactions()
+	{
+		List<Transactions> events = null;
+		try
+		{
+			events = ReadFile.getTransactionsFromFile();
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+		return events;
+	}
 	public static void addAccount()
 	{
 		Account account = Prompts.createAccount();
@@ -182,7 +195,6 @@ public class ModData {
 	}
 	public static Account getAccount(String name)
 	{
-		System.out.println("getting account");
 		Account account = new Account(name);
 		try {
 			List<Account> accounts = ReadFile.getAccounts();
@@ -199,7 +211,6 @@ public class ModData {
 			addAccount();
 			account = null;
 		}
-		System.out.println("got account");
 		return account;
 	}
 	public static void updateAccount(Account account)
@@ -217,7 +228,6 @@ public class ModData {
 			writer.flush();
 			writer.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("Failed to save");
 		}

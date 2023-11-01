@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.swing.JFileChooser;
+
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.text.PDFTextStripper;
@@ -33,9 +35,9 @@ public class ReadFile {
 		doc.close();
 		return text;
 	}
-	public static List<String[]> readPdfByPage(String loc) throws IOException
+	public static List<String[]> readPdfByPage() throws IOException
 	{
-		File file = new File("E:/Documents/ProjectWorkspace/wilson/Statement.pdf");
+		File file = findFile();
 		PDDocument doc = Loader.loadPDF(file);
 		List<String[]> pages = new ArrayList<String[]>();
 		for(int i = 0; i < doc.getNumberOfPages(); i++)
@@ -78,5 +80,20 @@ public class ReadFile {
 		accounts = Arrays.asList(gson.fromJson(reader, Account[].class));
 		reader.close();
 		return accounts;
+	}
+	public static File findFile()
+	{
+		JFileChooser find = new JFileChooser();
+		find.setCurrentDirectory(new File(System.getProperty("user.dir")));
+		int result = find.showOpenDialog(find);
+		if(JFileChooser.APPROVE_OPTION != result)
+		{
+			File file = find.getSelectedFile();
+			return file;
+		}
+		else
+		{
+			return null;
+		}
 	}
 }
