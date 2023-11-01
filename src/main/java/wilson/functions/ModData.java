@@ -232,4 +232,31 @@ public class ModData {
 			System.out.println("Failed to save");
 		}
 	}
+	public static void emptyFiles(boolean catagories)
+	{
+		Gson gson = new Gson();
+		try {
+			Writer accounts = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
+			Writer transactions = new FileWriter(System.getProperty("user.dir") + "/transactions.json");
+			if(catagories)
+			{
+				Writer category = new FileWriter(System.getProperty("user.dir") + "/catagories.json");
+				Category[] cat = {};
+				gson.toJson(cat, category);
+				category.flush();
+				category.close();
+			}
+			Account[] acc = {};
+			Transactions[] tran = {};
+			gson.toJson(acc, accounts);
+			gson.toJson(tran, transactions);
+			accounts.flush();
+			transactions.flush();
+			accounts.close();
+			transactions.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }
