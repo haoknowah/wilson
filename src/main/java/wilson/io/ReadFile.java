@@ -24,20 +24,46 @@ import wilson.models.Transactions;
 public class ReadFile {
 	public ReadFile()
 	{
-		System.out.println("Meow");
+		System.out.println("Meow.");
 	}
+	/*
+	 * @param file = file being read
+	 * @param doc = PDDocument object containing the loaded pdf file
+	 * @param stripper = PDFTextStripper object to get String of data from doc
+	 * @param text = String containing all info from file
+	 * Takes the file found with findFile() method and loads it to PDDocument object with Loader.loadPDF() and returns the text from the 
+	 * file after it is extracted using PDFTextStripper object
+	 */
 	public static String readPdf() throws IOException
 	{
-		File file = new File("E:/Documents/ProjectWorkspace/wilson/Statement.pdf");
+		File file = findFile();
 		PDDocument doc = Loader.loadPDF(file);
 		PDFTextStripper stripper = new PDFTextStripper();
 		String text = stripper.getText(doc);
 		doc.close();
 		return text;
 	}
+	/*
+	 * @param file = file being read
+	 * @param doc = PDDocument object containing the loaded pdf file
+	 */
 	public static List<String[]> readPdfByPage() throws IOException
 	{
 		File file = findFile();
+		PDDocument doc = Loader.loadPDF(file);
+		List<String[]> pages = new ArrayList<String[]>();
+		for(int i = 0; i < doc.getNumberOfPages(); i++)
+		{
+			PDFTextStripper stripper = new PDFTextStripper();
+			PDDocument x = new PDDocument();
+			x.addPage(doc.getPage(i));
+			pages.add(stripper.getText(x).split("\n"));
+		}
+		doc.close();
+		return pages;
+	}
+	public static List<String[]> readPdfByPage(File file) throws IOException
+	{
 		PDDocument doc = Loader.loadPDF(file);
 		List<String[]> pages = new ArrayList<String[]>();
 		for(int i = 0; i < doc.getNumberOfPages(); i++)
@@ -86,7 +112,7 @@ public class ReadFile {
 		JFileChooser find = new JFileChooser();
 		find.setCurrentDirectory(new File(System.getProperty("user.dir")));
 		int result = find.showOpenDialog(find);
-		if(JFileChooser.APPROVE_OPTION != result)
+		if(JFileChooser.APPROVE_OPTION == result)
 		{
 			File file = find.getSelectedFile();
 			return file;

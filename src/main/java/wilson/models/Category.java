@@ -1,8 +1,10 @@
 package wilson.models;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
+import wilson.functions.Load;
 import wilson.io.Prompts;
 
 public class Category {
@@ -27,9 +29,39 @@ public class Category {
 		this.budget = budget;
 		this.culprits = culprits;
 	}
-	public static Category getCategory(String name)
+	public static Category getCategory(String culprit)
 	{
-		Category category = new Category(name);
+		Category category = null;
+		List<Category> categories = Load.getCategories();
+		List<Category> options = new LinkedList<Category>();
+		for(Category c : categories)
+		{
+			if(c.culprits.contains(culprit))
+			{
+				options.add(c);
+			}
+		}
+		System.out.println("ABC");
+		if(options.size() > 1)
+		{
+			String name = Prompts.selectOption(options.toArray(new Category[options.size()]));
+			category = options.stream().filter(x -> x.getName() == name).findFirst().get();
+		}
+		else
+		{
+			try
+			{
+				System.out.println("options.size() == 1");
+				String[] cat = Prompts.newCategory(culprit);
+				category = new Category(cat[0], Double.parseDouble(cat[1]));
+
+			}
+			catch(NumberFormatException e)
+			{
+				e.printStackTrace();
+				category = new Category(culprit, 0);
+			}
+		}
 		return category;
 	}
 	public static Category newCategory(String name, String culprit)

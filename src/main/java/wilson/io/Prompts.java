@@ -23,7 +23,7 @@ public class Prompts {
 	public static String selectOption(Category[] options)
 	{
 		boolean val = false;
-		String sel = "";
+		String sel = null;
 		while(val == false)
 		{
 			System.out.println("Select an option. ");
@@ -32,7 +32,7 @@ public class Prompts {
 			{
 				if(c.getName().equals(o))
 				{
-					sel = o;
+					sel = c.getName();
 					val = true;
 					break;
 				}

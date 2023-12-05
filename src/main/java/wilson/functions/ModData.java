@@ -32,7 +32,7 @@ public class ModData {
 			{
 				category = Prompts.placeCategory(culprit);
 			}
-			if(tmp.length == 1)
+			else if(tmp.length == 1)
 			{
 				category = tmp[0].getName();
 			}
@@ -76,6 +76,19 @@ public class ModData {
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}
+	}
+	public static List<Category> getCategories()
+	{
+		try
+		{
+			Category[] catagories = ReadFile.getCategoriesFromFile();
+			return Arrays.asList(catagories);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+			return null;
 		}
 	}
 	public static void addTransactions(Transactions event)
@@ -255,7 +268,6 @@ public class ModData {
 			accounts.close();
 			transactions.close();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

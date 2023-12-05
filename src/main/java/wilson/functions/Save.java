@@ -20,6 +20,7 @@ public class Save {
 		Category cat = null;
 		try
 		{
+			System.out.println("Adding to category");
 			ModData.addToCategory(name);
 		}
 		catch(Exception e)
@@ -30,6 +31,7 @@ public class Save {
 		}
 		if(cat != null)
 		{
+			System.out.println("Cat == null");
 			ModData.addToCategory(name);
 		}
 	}
