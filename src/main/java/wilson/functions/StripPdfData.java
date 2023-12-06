@@ -9,6 +9,10 @@ import wilson.models.Transactions;
 
 public class StripPdfData {
 
+	/*
+	 * @param events = List of Transactions objects stripped by StripPdfData object
+	 * @param year = integer representing year of read account summary
+	 */
 	private List<Transactions> events;
 	private int year;
 	public StripPdfData()
@@ -16,10 +20,20 @@ public class StripPdfData {
 		events = new ArrayList<>();
 		year = 0;
 	}
+	//you know what this is
 	public List<Transactions> getEvents()
 	{
 		return this.events;
 	}
+	public int getYear()
+	{
+		return this.year;
+	}
+	/*
+	 * @param@input doc = List of string arrays input by user representing lines of each page extracted from file
+	 * @param full = List of strings from each page trimmed of excess data by @method trim(String[] page)
+	 * @param lines = array of Strings representing each
+	 */
 	public void parseFile(List<String[]> doc) throws IOException
 	{
 		year = Integer.parseInt(doc.get(0)[0].split("/")[2].substring(0, 2));
