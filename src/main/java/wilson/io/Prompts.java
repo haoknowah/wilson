@@ -7,12 +7,19 @@ import wilson.models.Category;
 
 public class Prompts {
 	public static Scanner in = new Scanner(System.in);
+	/*
+	 * @param@return category = user input string naming the category
+	 */
 	public static String placeCategory(String culprit) 
 	{
 		System.out.println("Where does " + culprit + " need to be categorized to?");
 		String category = in.nextLine();
 		return category;
 	}
+	/*
+	 * @param budget = user input string representing the budget for the new category
+	 * @param@return category = string array containing name and budget for new category
+	 */
 	public static String[] newCategory(String name)
 	{
 		System.out.print("Enter the budget: ");
@@ -20,6 +27,11 @@ public class Prompts {
 		String[] category = {name, budget};
 		return category;
 	}
+	/*
+	 * @param val = boolean determining whether or not an option has been selected
+	 * @param o = user input string representing chosen option
+	 * @param@return sel = String containing the option selected by the user
+	 */
 	public static String selectOption(Category[] options)
 	{
 		boolean val = false;
@@ -40,6 +52,10 @@ public class Prompts {
 		}
 		return sel;
 	}
+	/*
+	 * @param name = user input string containing name for new account
+	 * @param@return account = new account with name of @param name
+	 */
 	public static Account createAccount()
 	{
 		System.out.println("Enter an account name. ");

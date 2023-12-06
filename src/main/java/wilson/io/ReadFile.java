@@ -46,6 +46,10 @@ public class ReadFile {
 	/*
 	 * @param file = file being read
 	 * @param doc = PDDocument object containing the loaded pdf file
+	 * @param @return pages = ArrayList containing all the text per page
+	 * @param stripper = PDFTextStripper object to get String of data from each page in doc
+	 * @param x = PDDocument object used to contain String data from doc
+	 * Takes selected file and adds each individual page into an arraylist as a string before returning it
 	 */
 	public static List<String[]> readPdfByPage() throws IOException
 	{
@@ -62,6 +66,14 @@ public class ReadFile {
 		doc.close();
 		return pages;
 	}
+	/*
+	 * @input = file = file to be input and read by the method
+	 * @param doc = PDDocument containing data from file
+	 * @param @return pages = ArrayList containing all the text per page
+	 * @param stripper = PDFTextStripper object to get String of data from each page in doc
+	 * @param x = PDDocument object used to contain String data from doc
+	 * Takes input file and adds each individual page into an arraylist as a string before returning it
+	 */
 	public static List<String[]> readPdfByPage(File file) throws IOException
 	{
 		PDDocument doc = Loader.loadPDF(file);
@@ -80,6 +92,12 @@ public class ReadFile {
 	{
 		
 	}
+	/*
+	 * @param@return categories = array of categories being returned by the method
+	 * @param file = json file containing all of the categories
+	 * @param gson = Gson object to extract Json data from file
+	 * returns an array containing all the different categories from categories.json
+	 */
 	public static Category[] getCategoriesFromFile() throws IOException
 	{
 		Category[] categories = null;
@@ -89,6 +107,12 @@ public class ReadFile {
 		file.close();
 		return categories;
 	}
+	/*
+	 * @param@return events = List object containing all of the Transactions that were stored
+	 * @param reader = Reader for file containing transactions
+	 * @param gson = Gson object to extract json data from reader
+	 * returns a list of transactions that are stored in the transactions.json file
+	 */
 	public static List<Transactions> getTransactionsFromFile() throws IOException
 	{
 		List<Transactions> events = new ArrayList<Transactions>();
@@ -98,6 +122,12 @@ public class ReadFile {
 		reader.close();
 		return events;
 	}
+	/*
+	 * @param@return accounts = list object to contain all of the Accounts
+	 * @param reader = Reader for file containing Account data 
+	 * @param gson = Gson object to extract json data
+	 * returns a list containing all of the accounts stored in accounts.json
+	 */
 	public static List<Account> getAccounts() throws IOException
 	{
 		List<Account> accounts= new ArrayList<Account>();
@@ -107,6 +137,12 @@ public class ReadFile {
 		reader.close();
 		return accounts;
 	}
+	/*
+	 * @param find = JFileChooser object to allow user to navigate file explorer
+	 * @param result = integer indicating if the selection was valid
+	 * @param@return file = file selected by user
+	 * uses JFileChooser to allow user to select a file and then return the file if it is valid or null if it is not
+	 */
 	public static File findFile()
 	{
 		JFileChooser find = new JFileChooser();
