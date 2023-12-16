@@ -32,7 +32,11 @@ public class StripPdfData {
 	/*
 	 * @param@input doc = List of string arrays input by user representing lines of each page extracted from file
 	 * @param full = List of strings from each page trimmed of excess data by @method trim(String[] page)
+	 * @method trim = removes header information from each page
 	 * @param lines = array of Strings representing each
+	 * @method useable = determines if each line contains data for a Transactions object
+	 * @method objectify =  turns each line into a Transaction object
+	 * goes through file and filter out lines with irrelevant 
 	 */
 	public void parseFile(List<String[]> doc) throws IOException
 	{
@@ -72,6 +76,19 @@ public class StripPdfData {
 		}
 		objectify(filteredLines);
 	}
+	/*
+	 * @param@input filteredLines = List of Strings containing the lines filtered to contain only data for Transactions object
+	 * @param dec = integer representing decimal place of amount in each Transactions line
+	 * @param amount = String containing the amount as listed on @param filteredLines
+	 * @param d = double representing @param amount
+	 * @param monday = String representing the Date of the transaction
+	 * @param date = Date object representing the date of the transaction
+	 * @param id = String containing unique information identifying the transaction
+	 * @param culprit = String containing info as to the vendor responsible for the transaction
+	 * @param event = Transactions object representing the transaction performed in the line of @param filteredLines
+	 * @return events = List of Transactions objects returned for all Transactions found in @param filteredLines
+	 * takes each line from @param filteredLines and turns it into a Transactions object that is stored in @return events
+	 */
 	private List<Transactions> objectify(List<String> filteredLines)
 	{
 		int dec = filteredLines.get(0).indexOf(".");
@@ -119,6 +136,11 @@ public class StripPdfData {
 		}
 		return events;
 	}
+	/*
+	 * @param@input@return page = array of Strings containing text on a page
+	 * @param skipHead = List of Strings containing data for each page without the header information
+	 * gets rid of header information from each page
+	 */
 	private String[] trim(String[] page)
 	{
 		for(int i = 0; i < page.length; i++)
@@ -130,6 +152,11 @@ public class StripPdfData {
 		page = skipHead.toArray(new String[skipHead.size()]);
 		return page;
 	}
+	/*
+	 * @param@input line = String containing line of text from document
+	 * @param@return use = Boolean telling whether or not the @param line contains data for Transactions object
+	 * determines whether or not @param line contains data for a Transactions object
+	 */
 	private Boolean useable(String line)
 	{
 		Boolean use = true;
