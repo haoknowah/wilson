@@ -5,6 +5,12 @@ import java.util.List;
 
 public class Account {
 
+	/*
+	 * @variable balance = double containing balance of Account object
+	 * @variable name = String containing name of Account object
+	 * @variable events = List of Transactions objects associated with this Account object
+	 * @variable categories = List of Category objects associated with this Account object
+	 */
 	private double balance;
 	private String name;
 	private List<Transactions> events;
@@ -23,9 +29,7 @@ public class Account {
 		this.events = new ArrayList<Transactions>();
 		this.categories = new ArrayList<Category>();
 	}
-	
 	public Account(double balance, String name, List<Transactions> events, List<Category> categories) {
-		super();
 		this.balance = balance;
 		this.name = name;
 		this.events = events;

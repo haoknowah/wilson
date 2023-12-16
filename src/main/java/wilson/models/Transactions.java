@@ -4,6 +4,13 @@ import java.util.Date;
 
 public class Transactions {
 
+	/*
+	 * @variable id = String containing unique identifier for the transaction
+	 * @variable culprit = String containing name of vendor responsible for transaction
+	 * @variable date = Date object representing date of transaction
+	 * @variable amount = double containing the amount of money in the transaction
+	 * @variable category = Category object that transaction might specifically belong to
+	 */
 	private String id;
 	private String culprit;
 	private Date date;
