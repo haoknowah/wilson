@@ -18,14 +18,20 @@ public class Tester {
 	public static void main(String[] args) throws IOException{
 		List<String[]> doc = ReadFile.readPdfByPage();
 		StripPdfData stripper = new StripPdfData();
-		System.out.println("MEOW");
+		System.out.println("Testing stripper and file reader.");
 		stripper.parseFile(doc);
-		Scanner in = new Scanner(System.in);
-		String yub = in.next();
-		System.out.println("B");
-		Save.saveToCategory(yub);
+		System.out.println("Testing display");
+		
+		System.out.println("Testing Save");
+		
+		System.out.println("Testing Load");
+		
+		System.out.println("Testing ModData");
+		
+		System.out.println("Testing Account methods");
+		
+		
 		Account account = ModData.getAccount("yub");
-		System.out.println("A");
 		File file = ReadFile.findFile();
 		if(file != null)
 		{

@@ -5,6 +5,8 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
+import wilson.io.ReadFile;
+import wilson.models.Category;
 import wilson.models.Transactions;
 
 public class StripPdfData {
@@ -86,10 +88,9 @@ public class StripPdfData {
 	 * @param id = String containing unique information identifying the transaction
 	 * @param culprit = String containing info as to the vendor responsible for the transaction
 	 * @param event = Transactions object representing the transaction performed in the line of @param filteredLines
-	 * @return events = List of Transactions objects returned for all Transactions found in @param filteredLines
-	 * takes each line from @param filteredLines and turns it into a Transactions object that is stored in @return events
+	 * takes each line from @param filteredLines and turns it into a Transactions object that is stored in @param events
 	 */
-	private List<Transactions> objectify(List<String> filteredLines)
+	private void objectify(List<String> filteredLines)
 	{
 		int dec = filteredLines.get(0).indexOf(".");
 		for(String entry : filteredLines)
@@ -132,9 +133,11 @@ public class StripPdfData {
 			{
 				event.setId(id);
 			}
+			//add code to put each Transactions object into a Category and check it
+			Category cat = Category.getCategory(event.getCulprit());
+			event.setCategory(cat);
 			events.add(event);
 		}
-		return events;
 	}
 	/*
 	 * @param@input@return page = array of Strings containing text on a page

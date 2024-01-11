@@ -78,7 +78,6 @@ public class Category {
 				options.add(c);
 			}
 		}
-		System.out.println("ABCTEST");
 		if(options.size() > 1)
 		{
 			String name = Prompts.selectOption(options.toArray(new Category[options.size()]));
@@ -91,7 +90,7 @@ public class Category {
 				System.out.println("options.size() == 1");
 				String[] cat = Prompts.newCategory(culprit);
 				category = new Category(cat[0], Double.parseDouble(cat[1]));
-
+				System.out.println(category.getName());
 			}
 			catch(NumberFormatException e)
 			{
