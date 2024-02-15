@@ -26,6 +26,9 @@ public class ModData {
 	 * @param a = array of Object containing only Category with the input transaction name
 	 * @param tmp = temporary array of Category containing array a to determine category selections
 	 * @param category = string containing selected category name
+	 * @param cat = final string of @param category for use in Arrays.stream(x).filter
+	 * @param newCat = String array for creating new Category
+	 * @param yub = new Category object to be added
 	 * @param writer = FileWriter object to write new category data to categories.json
 	 * static method that extracts an array of categories from categories.json possessing culprit as part of their transactions,
 	 * 	then depending on what the array contains either directs the user to manually enter a category to add it to, gives a list for
@@ -33,6 +36,7 @@ public class ModData {
 	 */
 	public static void addToCategory(String culprit)
 	{
+		//need to change code so that this method is only called when a new culprit is added to a Category
 		Gson gson = new Gson();
 		try
 		{
@@ -42,7 +46,16 @@ public class ModData {
 			String category = "";
 			if(tmp.length == 0)
 			{
+				System.out.println("addToCategory no options");
 				category = Prompts.placeCategory(culprit);
+				final String cat = category;
+				if(Arrays.stream(r).filter(x -> x.getName().equals(cat)).toArray().length == 0)
+				{
+					String[] newCat = Prompts.newCategory(cat);
+					Category yub = new Category(newCat[0], Double.parseDouble(newCat[1]));
+					createCategory(yub);
+					r = ReadFile.getCategoriesFromFile();
+				}
 			}
 			else if(tmp.length == 1)
 			{
@@ -50,6 +63,7 @@ public class ModData {
 			}
 			else
 			{
+				System.out.println("Options: ");
 				for(Category c : tmp)
 				{
 					System.out.println(c.getName());
@@ -61,6 +75,7 @@ public class ModData {
 				if(c.getName().equals(category))
 				{
 					c.addCulprit(culprit);
+					System.out.println("Added to category");
 				}
 			}
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
@@ -71,6 +86,7 @@ public class ModData {
 		catch(Exception e)
 		{
 			e.printStackTrace();
+			System.out.println("Problem in ModData.addToCategory");
 		}
 	}
 	/*
@@ -83,14 +99,14 @@ public class ModData {
 	 * retrieves array of categories from categories.json and creates a new updated list with a new Category that is then rewritten
 	 * 	to categories.json
 	 */
-	public static void createCategory(String name)
+	public static void createCategory(Category cat)
 	{
+		System.out.println("Starting create Category");
 		Gson gson = new Gson();
 		try {
 			Category[] cats = ReadFile.getCategoriesFromFile();
-			String[] newCat = Prompts.newCategory(name);
-			List<Category> upd = Arrays.asList(cats);
-			upd.add(new Category(newCat[0], Double.parseDouble(newCat[1])));
+			List<Category> upd = new ArrayList<>(Arrays.asList(cats));
+			upd.add(cat);
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
 			cats = upd.toArray(new Category[upd.size()]);
 			gson.toJson(cats, writer);

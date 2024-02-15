@@ -27,6 +27,21 @@ public class DisplayData {
 		}
 	}
 	/*
+	 * same as above but allows user to input the file into the constructor instead of having to find it again if they already have it
+	 */
+	public DisplayData(File file)
+	{
+		this.file = file;
+		try
+		{
+			pages = ReadFile.readPdfByPage(file);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	/*
 	 * if you don't know what these few methods are then why are you even looking at this
 	 */
 	public File getFile()
@@ -80,14 +95,55 @@ public class DisplayData {
 				{
 					ModData.addToCategory(event.getCulprit());
 				}
-				System.out.printf("%20s%15s%10f", event.getCulprit(), event.getCategory().getName(), event.getAmount());
+				System.out.printf("%-30s%-15s%10.2f", event.getCulprit().strip(), event.getCategory().getName().strip(), event.getAmount());
+				System.out.print("\n");
 			}
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public static void showFullBreakdown()
+	/*
+	 * @param stripper = StripPdfData object for getting data from @param pages
+	 * @param categories = Map object for displaying categories and their usage
+	 * @param events = 
+	 */
+	public void showBreakdownByCategory()
 	{
-		
+		StripPdfData stripper = new StripPdfData();
+		//change from map to set and change double to double[] so that it can contain budget as well
+		Map<String, double[]> categories = new HashMap<String, double[]>();
+		try
+		{
+			stripper.parseFile(this.pages);
+			List<Transactions> events = stripper.getEvents();
+			events = categorize(events);
+			for(Transactions event : events)
+			{
+				if(event.getCategory() == null)
+				{
+					ModData.addToCategory(event.getCulprit());
+				}
+				if(categories.containsKey(event.getCategory().getName()) == false)
+				{
+					double[] yub = {0.0, 0.0};
+					categories.put(event.getCategory().getName(), yub);
+				}
+				String cat = event.getCategory().getName();
+				double[] meow = categories.get(cat);
+				meow[0] = meow[0] + event.getCategory().getBudget();
+				meow[1] = meow[1] + event.getAmount();
+				categories.put(cat, meow);
+			}
+			System.out.printf("%-15s%10s%10s\n", "Category", "Budget", "Total");
+			categories.entrySet().stream().forEach(x -> System.out.printf("%-15s%10.2f%10.2f\n", x.getKey(), x.getValue()[0], 
+					x.getValue()[1]));
+			double[] temp = categories.values().stream().reduce((a, b) -> new double[] {(double) a[0] + (double) b[0], 
+					(double) a[1] + (double) b[1]}).get();
+			System.out.printf("%-15s%10.2f%10.2f\n", "Net Total: ", temp[0], temp[1]);
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

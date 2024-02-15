@@ -3,8 +3,10 @@ package wilson.io;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -100,11 +102,23 @@ public class ReadFile {
 	 */
 	public static Category[] getCategoriesFromFile() throws IOException
 	{
-		Category[] categories = null;
-		Reader file = new FileReader(System.getProperty("user.dir") + "/categories.json");
+		Category[] categories = {};
 		Gson gson = new Gson();
-		categories = gson.fromJson(file, Category[].class);
-		file.close();
+		try
+		{
+			Reader file = new FileReader(System.getProperty("user.dir") + "/categories.json");
+			categories = gson.fromJson(file, Category[].class);
+			file.close();
+		}
+		catch(FileNotFoundException e)
+		{
+			Writer writer = new FileWriter(System.getProperty("user.dir") + "/categories.json");
+			gson.toJson(categories, writer);
+			writer.close();
+			Reader file = new FileReader(System.getProperty("user.dir") + "/categories.json");
+			categories = gson.fromJson(file, Category[].class);
+			file.close();
+		}
 		return categories;
 	}
 	/*

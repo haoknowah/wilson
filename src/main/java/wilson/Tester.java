@@ -7,6 +7,7 @@ import java.util.Scanner;
 
 import javax.swing.JFileChooser;
 
+import wilson.functions.DisplayData;
 import wilson.functions.ModData;
 import wilson.functions.Save;
 import wilson.functions.StripPdfData;
@@ -16,22 +17,14 @@ import wilson.models.Account;
 public class Tester {
 
 	public static void main(String[] args) throws IOException{
-		List<String[]> doc = ReadFile.readPdfByPage();
-		StripPdfData stripper = new StripPdfData();
-		System.out.println("Testing stripper and file reader.");
-		stripper.parseFile(doc);
 		System.out.println("Testing display");
-		
-		System.out.println("Testing Save");
-		
-		System.out.println("Testing Load");
-		
-		System.out.println("Testing ModData");
-		
+		DisplayData dis = new DisplayData();
+		dis.showBreakdown();
+		dis.showBreakdownByCategory();
 		System.out.println("Testing Account methods");
-		
-		
+		Account acc = new Account("Goku");
 		Account account = ModData.getAccount("yub");
+		System.out.println(acc.getBalance());
 		File file = ReadFile.findFile();
 		if(file != null)
 		{

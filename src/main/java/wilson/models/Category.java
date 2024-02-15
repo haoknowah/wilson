@@ -1,10 +1,14 @@
 package wilson.models;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.google.gson.JsonIOException;
+
 import wilson.functions.Load;
+import wilson.functions.Save;
 import wilson.io.Prompts;
 
 public class Category {
@@ -68,8 +72,10 @@ public class Category {
 	 */
 	public static Category getCategory(String culprit)
 	{
+		System.out.println("Category.getCategory()");
 		Category category = null;
-		List<Category> categories = Load.getCategories();
+		culprit = culprit.trim();
+		List<Category> categories = new ArrayList<>(Load.getCategories());
 		List<Category> options = new LinkedList<Category>();
 		for(Category c : categories)
 		{
@@ -80,24 +86,34 @@ public class Category {
 		}
 		if(options.size() > 1)
 		{
+			System.out.println("Options:");
+			options.stream().forEach(x -> System.out.println(x.getName()));
 			String name = Prompts.selectOption(options.toArray(new Category[options.size()]));
 			category = options.stream().filter(x -> x.getName() == name).findFirst().get();
+		}
+		else if(options.size() == 1)
+		{
+			category = options.get(0);
 		}
 		else
 		{
 			try
 			{
-				System.out.println("options.size() == 1");
-				String[] cat = Prompts.newCategory(culprit);
-				category = new Category(cat[0], Double.parseDouble(cat[1]));
-				System.out.println(category.getName());
+				Save.saveToCategory(culprit);
 			}
 			catch(NumberFormatException e)
 			{
 				e.printStackTrace();
 				category = new Category(culprit, 0);
+			} catch (JsonIOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 		}
+		System.out.println("Category.getCategory completed");
 		return category;
 	}
 	public String getName() {
