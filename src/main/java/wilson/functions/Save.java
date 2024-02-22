@@ -75,13 +75,4 @@ public class Save {
 			e.printStackTrace();
 		}
 	}
-	/*
-	 * @param@input events = List of Transactions objects to be saved
-	 * @method addTransactions(Transactions x) = method from ModData class that adds a Transactions object to transactions.json
-	 * saves @param events to transactions.json
-	 */
-	public static void saveTransactions(List<Transactions> events)
-	{
-		events.stream().forEach(x->ModData.addTransactions(x));
-	}
 }

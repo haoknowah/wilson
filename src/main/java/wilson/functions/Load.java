@@ -12,13 +12,6 @@ import wilson.models.Transactions;
 public class Load {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();
 	/*
-	 * returns List of Transactions objects loaded from transactions.json using ModData method getTransactions()
-	 */
-	public static List<Transactions> getTransactions()
-	{
-		return ModData.getTransactions();
-	}
-	/*
 	 * @param@input account = String containing name of Account object being retrieved
 	 * returns an Account object taken from accounts.json with name of @param account using ModData method getAccount(String account)
 	 */

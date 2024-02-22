@@ -7,8 +7,7 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -134,47 +133,6 @@ public class ModData {
 		}
 	}
 	/*
-	 * @param event = Transactions object representing the transaction to be added
-	 * @param gson = Gson object for compiling data in json format
-	 * @param writer = FileWriter object for writing data to transactions.json file
-	 * @param events = list containing all Transactions in transactions.json
-	 * extracts list from transactions.json and adds @param event input to list before rewriting list to transactions.json
-	 */
-	public static void addTransactions(Transactions event)
-	{
-		Gson gson = new Gson();
-		try
-		{
-			List<Transactions> events = ReadFile.getTransactionsFromFile();
-			Writer writer = new FileWriter(System.getProperty("user.dir") + "/transactions.json");
-			events.add(event);
-			gson.toJson(events, writer);
-			writer.flush();
-			writer.close();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-	}
-	/*
-	 * @param@return events = list of Transactions from transactions.json
-	 * reads list of transactions and returns it or null if there is none
-	 */
-	public static List<Transactions> getTransactions()
-	{
-		List<Transactions> events = null;
-		try
-		{
-			events = ReadFile.getTransactionsFromFile();
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-		return events;
-	}
-	/*
 	 * @param account = Account object holding data for new Account
 	 * @param gson = Gson object for compiling data in json format
 	 * @param writer = FileWriter object for writing data to accounts.json
@@ -290,6 +248,7 @@ public class ModData {
 	 * @param name = string containing name of Account being searched for
 	 * @param@return account = Account object containing data for searched account of @param name
 	 * @param accounts = list of Account containing all accounts from accounts.json
+	 * @param yub = boolean determining if a new account is getting created
 	 * gets list of accounts that is filtered by name to an array, the first element of which is returned
 	 */
 	public static Account getAccount(String name)
@@ -307,6 +266,19 @@ public class ModData {
 			e.printStackTrace();
 			addAccount();
 			account = null;
+		}
+		catch(ArrayIndexOutOfBoundsException e)
+		{
+			System.out.println("Account does not exist. Create a new account? Y/N");
+			boolean yub = Prompts.yesno();
+			if(yub)
+			{
+				account = Prompts.createAccount();
+			}
+			else
+			{
+				account = null;
+			}
 		}
 		return account;
 	}

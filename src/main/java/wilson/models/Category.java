@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import com.google.gson.JsonIOException;
 
@@ -17,10 +18,12 @@ public class Category {
 	 * @param@variable name = String containing name for Category object
 	 * @param@variable budget = double containing the budget allotted for Category object
 	 * @param@variable culprits = List of Strings containing vendors in Category object
+	 * @param@variable account = account that the category is attached to
 	 */
 	private String name;
 	private double budget;
 	private List<String> culprits;
+	String account = null;
 	/*
 	 * @param@input name = String containing name of new Category object
 	 * constructor building new Category object with @variable name of @param name
@@ -130,5 +133,17 @@ public class Category {
 	public void addCulprit(String culprit)
 	{
 		culprits.add(culprit);
+	}
+	public String getAccount()
+	{
+		if(account != null)
+		{
+			return account;
+		}
+		return "none";
+	}
+	public void addAccount(String account)
+	{
+		this.account = account;
 	}
 }

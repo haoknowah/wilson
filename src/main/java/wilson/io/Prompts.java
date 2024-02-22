@@ -63,4 +63,17 @@ public class Prompts {
 		Account account = new Account(name);
 		return account;
 	}
+	/*
+	 * @param ans = string representing the user's answer
+	 * @return boolean of true or false 
+	 */
+	public static boolean yesno()
+	{
+		String ans = in.next();
+		if(ans.equalsIgnoreCase("y"))
+		{
+			return true;
+		}
+		return false;
+	}
 }
