@@ -7,7 +7,6 @@ import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -45,7 +44,7 @@ public class ModData {
 			String category = "";
 			if(tmp.length == 0)
 			{
-				System.out.println("addToCategory no options");
+				System.out.println("addToCategory no options found");
 				category = Prompts.placeCategory(culprit);
 				final String cat = category;
 				if(Arrays.stream(r).filter(x -> x.getName().equals(cat)).toArray().length == 0)
@@ -149,6 +148,7 @@ public class ModData {
 			Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
 			List<Account> accounts = ReadFile.getAccounts();
 			accounts.add(account);
+			System.out.println("A");
 			Account[] nw = accounts.toArray(new Account[accounts.size()]);
 			gson.toJson(nw, writer);
 			writer.flush();
@@ -161,6 +161,7 @@ public class ModData {
 			 * @param accounts = array of Account containing single new account
 			 * if file was not found, creates new accounts.json file and adds account to it
 			 */
+			System.out.println("File not found");
 			try {
 				Writer writer = new FileWriter(System.getProperty("user.dir") + "/accounts.json");
 				Account[] accounts = {account};
@@ -257,6 +258,10 @@ public class ModData {
 		try {
 			List<Account> accounts = ReadFile.getAccounts();
 			account = (Account) accounts.stream().filter(x -> x.getName().equalsIgnoreCase(name)).toArray()[0];
+			if(account.getName() == name)
+			{
+				System.out.println("MEOW");
+			}
 		}
 		/*
 		 * creates new accounts.json if no accounts.json file is found
@@ -274,6 +279,7 @@ public class ModData {
 			if(yub)
 			{
 				account = Prompts.createAccount();
+				addAccount(account);
 			}
 			else
 			{
@@ -316,8 +322,8 @@ public class ModData {
 	 * @param gson = Gson object for writing data to json file
 	 * @param accounts = FileWriter object to write data to accounts.json
 	 * @param transactions = FileWriter object to write data to transactions.json
-	 * @param category = FileWriter object to write data to catagories.json
-	 * @param cat = empty array of Category to create blank catagories.json
+	 * @param category = FileWriter object to write data to categories.json
+	 * @param cat = empty array of Category to create blank categories.json
 	 * @param acc = empty array of Account to create blank accounts.json
 	 * @param tran = empty array of Transaction to create blank transactions.json
 	 * creates empty arrays or Account and Transaction and/or Category and writes them to respective json file to empty it of data
@@ -330,7 +336,7 @@ public class ModData {
 			Writer transactions = new FileWriter(System.getProperty("user.dir") + "/transactions.json");
 			if(categories)
 			{
-				Writer category = new FileWriter(System.getProperty("user.dir") + "/catagories.json");
+				Writer category = new FileWriter(System.getProperty("user.dir") + "/categories.json");
 				Category[] cat = {};
 				gson.toJson(cat, category);
 				category.flush();

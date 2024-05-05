@@ -59,6 +59,7 @@ public class Prompts {
 	public static Account createAccount()
 	{
 		System.out.println("Enter an account name. ");
+		in.nextLine();
 		String name = in.nextLine();
 		Account account = new Account(name);
 		return account;
