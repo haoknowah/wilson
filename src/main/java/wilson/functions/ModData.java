@@ -289,7 +289,10 @@ public class ModData {
 		return account;
 	}
 	/*
-	 * 
+	 * @param name = name of account to be removed
+	 * @param accounts = list of accounts from accounts.json
+	 * @param accFilt = list of accounts that have name of @param name
+	 * removes account if it exists or creates it if it doesn't
 	 */
 	public static void removeAccount(String name)
 	{
@@ -382,8 +385,10 @@ public class ModData {
 		}
 	}
 	 /*
-	  * @param
-	  * 
+	  * @param gson= Gson object for writing data to json file
+	  * @param category = Writer object for to write data to categories.json
+	  * @param catagories = array containing data from categories.json
+	  * removes a category from categories.json
 	  */
 	public static void removeCategory(String name)
 	{
