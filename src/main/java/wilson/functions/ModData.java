@@ -289,6 +289,33 @@ public class ModData {
 		return account;
 	}
 	/*
+	 * 
+	 */
+	public static void removeAccount(String name)
+	{
+		try
+		{
+			List<Account> accounts = ReadFile.getAccounts();
+			List<Account> accFilt = accounts.stream().filter(x -> x.getName().equalsIgnoreCase(name)).toList();
+			if(accFilt.size() > 0)
+			{
+				for(Account yub : accFilt)
+				{
+					accounts.remove(yub);
+				}
+				System.out.println("Account(s) removed");
+			}
+			else
+			{
+				addAccount(new Account(name));
+			}
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
+	}
+	/*
 	 * @input@param account = input Account object to be updated
 	 * @param accounts = list of Account containing all Account data from and to accounts.json
 	 * @param old = Account object with same name as @input account
@@ -351,6 +378,28 @@ public class ModData {
 			accounts.close();
 			transactions.close();
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	 /*
+	  * @param
+	  * 
+	  */
+	public static void removeCategory(String name)
+	{
+		Gson gson = new Gson();
+		try
+		{
+			Writer category = new FileWriter(System.getProperty("user.dir") + "/categories.json");
+			Category[] catagories = ReadFile.getCategoriesFromFile();
+			catagories = Arrays.stream(catagories).filter(x -> x.getName() != name).toList().toArray(new Category[catagories.length - 1]);
+			gson.toJson(catagories, category);
+			category.flush();
+			category.close();
+		}
+		catch(IOException e)
+		{
+			System.out.println("Category not found");
 			e.printStackTrace();
 		}
 	}

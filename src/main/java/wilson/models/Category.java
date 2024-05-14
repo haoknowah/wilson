@@ -134,6 +134,10 @@ public class Category {
 	{
 		culprits.add(culprit);
 	}
+	public void removeCulprit(String culprit)
+	{
+		culprits.remove(culprit);
+	}
 	public String getAccount()
 	{
 		if(account != null)
