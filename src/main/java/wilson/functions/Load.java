@@ -7,7 +7,6 @@ import com.google.gson.GsonBuilder;
 
 import wilson.models.Account;
 import wilson.models.Category;
-import wilson.models.Transactions;
 
 public class Load {
 	public static Gson gson = new GsonBuilder().setPrettyPrinting().create();

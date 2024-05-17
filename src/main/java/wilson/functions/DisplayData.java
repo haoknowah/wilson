@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import wilson.io.ReadFile;
-import wilson.models.Category;
 import wilson.models.Transactions;
 
 public class DisplayData {
