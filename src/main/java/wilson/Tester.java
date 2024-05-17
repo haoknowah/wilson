@@ -7,10 +7,7 @@ import java.util.Scanner;
 
 import wilson.functions.DisplayData;
 import wilson.functions.ModData;
-import wilson.functions.Save;
-import wilson.functions.StripPdfData;
 import wilson.io.Prompts;
-import wilson.io.ReadFile;
 import wilson.models.Account;
 import wilson.models.Category;
 
